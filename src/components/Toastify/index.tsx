@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { ToastifyType } from '../ToastContainer';
 import { motion } from 'framer-motion';
-import { useToastr } from '../../utils/toastr';
+import { useToastr } from '../../hooks/usetoastr';
 import { $Toastify, $ToastifyProgress, $ToastifyText } from './style';
 
 export const Toastify: FC<{ item: ToastifyType }> = ({ item }) => {
