@@ -6,18 +6,18 @@ import { $Toastify, $ToastifyProgress, $ToastifyText } from './style';
 
 export const Toastify: FC<{ item: ToastifyType }> = ({ item }) => {
 	const { handelCloseToastify } = useToastr();
-	const ref = useRef<number>(0);
+	const refInterval = useRef<number>(0);
 	const refMouseToastify = useRef<HTMLDivElement | null>(null);
 	const [progress, setprogress] = useState(100);
 	const [mouseOver, setMouseOver] = useState(false);
 
 	useEffect(() => {
 		if (!mouseOver) {
-			ref.current = setInterval(() => {
+			refInterval.current = setInterval(() => {
 				setprogress(prev => {
 					if (prev === 0) {
 						handelCloseToastify(item.id!);
-						clearInterval(ref.current);
+						clearInterval(refInterval.current);
 						return prev;
 					}
 					return prev - 2;
@@ -25,14 +25,14 @@ export const Toastify: FC<{ item: ToastifyType }> = ({ item }) => {
 			}, 100);
 		}
 		return () => {
-			clearInterval(ref.current);
+			clearInterval(refInterval.current);
 		};
 	}, [mouseOver]);
 
 	useEffect(() => {
 		const handelMouseOver = () => {
 			setMouseOver(true);
-			clearInterval(ref.current);
+			clearInterval(refInterval.current);
 		};
 		const handelMouseOut = () => {
 			setMouseOver(false);
